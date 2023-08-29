@@ -31,12 +31,25 @@ sequenceDiagram
 - Basic Authentication to secure API endpoints.
 - Integration examples for Home Assistant.
 
-## Prerequisites
+### Hardware Components:
 
-- Raspberry Pi (with Raspbian OS and GPIO capabilities)
-- Python 3.x
-- Flask, RPi.GPIO, Flask-Limiter
+- **Raspberry Pi:** Serves as the central control for the remote starter functionalities.
 
+- **Start-X Remote Start Kit (Honda Accord 2008-2012):** The dedicated starter kit for the car.
+
+- **Compustar RF-1WR3-AP 1-Way Rf Kit Remote Transmitter:** Interfaces between the Raspberry Pi and the Start-X starter kit.
+
+- **SRD-05VDC-SL-C Relay (on a breakout board):** Used to simulate the button press on the Compustar remote.
+
+- **Wiring:** Soldered onto the right-most pads of the Compustar remote button, these wires are controlled by the Raspberry Pi's GPIO to emulate a button press.
+
+### Functionality:
+
+The Raspberry Pi, via its GPIO, controls the relay to momentarily connect the soldered wires on the Compustar remote, simulating a button press and thereby activating the Start-X Remote Starter in the Honda Accord.
+
+--- 
+
+This format provides a quick reference for the components and a brief description of their interaction.
 ## Installation & Setup
 
 1. **Clone the Repository**:
