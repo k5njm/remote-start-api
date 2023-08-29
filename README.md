@@ -32,8 +32,8 @@ This format provides a quick reference for the components and a brief descriptio
 
 1. **Clone the Repository**:
    ```bash
-   git clone <repository-url>
-   cd <repository-dir>
+   git clone https://github.com/k5njm/remote-start-api.git
+   cd remote-start-api
    ```
 
 2. **Set up a Virtual Environment** (recommended):
