@@ -2,28 +2,6 @@
 
 This project provides a RESTful API to interact with a Honda Accord's basic functionalities, like lock, unlock, and engine start, using a Raspberry Pi and GPIO pins.
 
-```mermaid
-sequenceDiagram
-    participant HA as Home Assistant
-    participant API as Flask API (Raspberry Pi)
-    participant Car as Honda Accord
-
-    HA->>API: POST /lock
-    API->>Car: Activate Lock
-    Car-->>API: Lock Activated
-    API-->>HA: Lock Confirmation
-
-    HA->>API: POST /unlock
-    API->>Car: Activate Unlock
-    Car-->>API: Unlock Activated
-    API-->>HA: Unlock Confirmation
-
-    HA->>API: POST /engine
-    API->>Car: Start Engine
-    Car-->>API: Engine Started
-    API-->>HA: Engine Start Confirmation
-```
-
 ## Features
 
 - RESTful API endpoints for Lock, Unlock, and Engine Start.
@@ -101,6 +79,28 @@ The server will start, and by default, it will be accessible at `http://127.0.0.
 - **Lock**: `POST /lock`
 - **Unlock**: `POST /unlock`
 - **Engine Start**: `POST /engine`
+
+```mermaid
+sequenceDiagram
+    participant HA as Home Assistant
+    participant API as Flask API (Raspberry Pi)
+    participant Car as Honda Accord
+
+    HA->>API: POST /lock
+    API->>Car: Activate Lock
+    Car-->>API: Lock Activated
+    API-->>HA: Lock Confirmation
+
+    HA->>API: POST /unlock
+    API->>Car: Activate Unlock
+    Car-->>API: Unlock Activated
+    API-->>HA: Unlock Confirmation
+
+    HA->>API: POST /engine
+    API->>Car: Start Engine
+    Car-->>API: Engine Started
+    API-->>HA: Engine Start Confirmation
+```
 
 ## Home Assistant Integration
 
