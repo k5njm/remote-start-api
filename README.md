@@ -59,6 +59,11 @@ This format provides a quick reference for the components and a brief descriptio
    export USERNAME=myuser
    export PASSWORD=mypassword
    ```
+5. **Permissions for GPIO pins**
+ On Raspberry Pi systems (Raspbian/Debian based), GPIO pins can be accessed by users in the gpio group. By default, the pi user is added to this group, so if you are using the pi user to run your Flask application, it should be able to access the GPIO pins. If you're using a different user, you need to add that user to the gpio group.
+ ```
+sudo usermod -a -G gpio your_username
+```
 
 ## Running the Server
 
@@ -73,6 +78,83 @@ This format provides a quick reference for the components and a brief descriptio
    ```
 
 The server will start, and by default, it will be accessible at `http://127.0.0.1:5000/`.
+
+## Run on system startup
+
+To ensure that the `remote-start-server.py` script runs on system startup and keeps running even if it encounters errors or crashes, you can use a combination of a startup script and a process supervisor like `systemd`. Here's how you can do it on a Raspberry Pi, which typically runs a Raspbian OS (a variant of Debian):
+
+### Step 1: Create a systemd Service
+
+1. Create a systemd service file:
+
+```bash
+sudo nano /etc/systemd/system/remote-start-server.service
+```
+
+2. Add the following content to the file:
+
+```
+[Unit]
+Description=Remote Start Server
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/python3 /path/to/your/remote-start-server.py
+WorkingDirectory=/path/to/your/directory
+Restart=always
+User=pi
+Group=pi
+Environment=PATH=/usr/bin:/usr/local/bin
+Environment=PYTHONPATH=/path/to/your/directory
+
+[Install]
+WantedBy=multi-user.target
+```
+
+**Note:** 
+- Replace `/path/to/your/remote-start-server.py` with the actual path to your Python script.
+- Replace `/path/to/your/directory` with the directory of your Python script.
+
+### Step 2: Enable and Start the Service
+
+1. Reload the systemd manager configuration:
+
+```bash
+sudo systemctl daemon-reload
+```
+
+2. Enable your service so that it starts on boot:
+
+```bash
+sudo systemctl enable remote-start-server.service
+```
+
+3. Start your service:
+
+```bash
+sudo systemctl start remote-start-server.service
+```
+
+### Step 3: Monitor and Manage the Service
+
+- To check the status of your service:
+
+```bash
+sudo systemctl status remote-start-server.service
+```
+
+- If you ever need to stop or restart your service:
+
+```bash
+sudo systemctl stop remote-start-server.service
+sudo systemctl restart remote-start-server.service
+```
+
+The `Restart=always` directive in the service file ensures that if your script crashes or stops for some reason, systemd will attempt to restart it automatically.
+
+This approach makes sure that your script starts up with the system and remains running. If you make updates to the script, you might need to restart the service to apply those changes.
+
+---
 
 ## API Endpoints
 
