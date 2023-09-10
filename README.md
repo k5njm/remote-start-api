@@ -50,8 +50,8 @@ This format provides a quick reference for the components and a brief descriptio
 4. **Environment Variables**:
    Before running the server, make sure to set the required environment variables:
    - `GPIO_PIN`: The GPIO pin number to be used.
-   - `USERNAME`: Basic Auth username.
-   - `PASSWORD`: Basic Auth password.
+   - `API_USERNAME`: Basic Auth username.
+   - `API_PASSWORD`: Basic Auth password.
 
    Example:
    ```bash
@@ -182,6 +182,22 @@ sequenceDiagram
     API->>Car: Start Engine
     Car-->>API: Engine Started
     API-->>HA: Engine Start Confirmation
+```
+### Test with curl:
+
+```sh
+curl -X POST -u admin:password http://localhost:5000/lock
+{"status":"Lock activated!"}
+```
+
+```sh
+curl -X POST -u admin:password http://localhost:5000/unlock
+{"status":"Unlock activated!"}
+```
+
+```sh
+curl -X POST -u admin:password http://localhost:5000/engine
+{"status":"Engine activated!"}
 ```
 
 ## Home Assistant Integration
