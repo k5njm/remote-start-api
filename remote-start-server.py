@@ -67,6 +67,20 @@ try:
 except RuntimeError:
     logging.error("Error importing RPi.GPIO! This is probably because you need superuser privileges.")
 
+
+def authenticate(f):
+    """
+    This decorator checks for valid authentication headers.
+    """
+    @wraps(f)
+    def decorated(*args, **kwargs):
+        auth = request.authorization
+        if not auth or not (auth.username == USERNAME and auth.password == PASSWORD):
+            abort(401, "Invalid authentication credentials.")
+        return f(*args, **kwargs)
+    return decorated
+
+
 def activate_gpio(duration):
     """
     Activate GPIO pin for a specific duration.
@@ -106,17 +120,6 @@ def engine():
     return jsonify({"status": "Engine activated!"})
 
 
-def authenticate(f):
-    """
-    This decorator checks for valid authentication headers.
-    """
-    @wraps(f)
-    def decorated(*args, **kwargs):
-        auth = request.authorization
-        if not auth or not (auth.username == USERNAME and auth.password == PASSWORD):
-            abort(401, "Invalid authentication credentials.")
-        return f(*args, **kwargs)
-    return decorated
 
 
 if __name__ == '__main__':
