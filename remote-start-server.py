@@ -11,7 +11,7 @@ Each endpoint responds to a POST request and triggers a specific GPIO pin activa
 
 Configuration:
 The server configuration can be set using environment variables:
-    - GPIO_PIN: Defines which GPIO pin number is controlled (default is 18).
+    - GPIO_PIN: Defines which GPIO pin number is controlled (default is 23).
     - API_USERNAME: Username for basic API authentication (default is 'admin').
     - API_PASSWORD: Password for basic API authentication (default is 'password').
     - LOG_LEVEL: Defines the logging level (default is 'WARNING'). Other valid values include 'INFO', 'DEBUG', 'ERROR', etc.
@@ -56,7 +56,7 @@ app = Flask(__name__)
 limiter = Limiter(app)
 
 # Configuration
-GPIO_PIN = int(os.environ.get("GPIO_PIN", 18))
+GPIO_PIN = int(os.environ.get("GPIO_PIN", 23))
 USERNAME = os.environ.get("API_USERNAME", "admin")
 PASSWORD = os.environ.get("API_PASSWORD", "password")
 LOG_LEVEL = os.environ.get("LOG_LEVEL", "INFO").upper()
