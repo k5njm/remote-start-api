@@ -88,7 +88,7 @@ To ensure that the `remote-start-server.py` script runs on system startup and ke
 1. Create a systemd service file:
 
 ```bash
-sudo nano /etc/systemd/system/remote-start-server.service
+sudo vim /etc/systemd/system/remote-start-server.service
 ```
 
 2. Add the following content to the file:
@@ -99,21 +99,23 @@ Description=Remote Start Server
 After=network.target
 
 [Service]
-ExecStart=/usr/bin/python3 /path/to/your/remote-start-server.py
-WorkingDirectory=/path/to/your/directory
+ExecStart=/home/pi/repos/remote-start-api/venv/bin/python3 /home/pi/repos/remote-start-api/remote-start-server.py
+WorkingDirectory=/home/pi/repos/remote-start-api
 Restart=always
 User=pi
 Group=pi
 Environment=PATH=/usr/bin:/usr/local/bin
-Environment=PYTHONPATH=/path/to/your/directory
+Environment=PYTHONPATH=/home/pi/repos/remote-start-api
+Environment=API_USERNAME=admin
+Environment=API_PASSWORD=password
 
 [Install]
 WantedBy=multi-user.target
 ```
 
 **Note:** 
-- Replace `/path/to/your/remote-start-server.py` with the actual path to your Python script.
-- Replace `/path/to/your/directory` with the directory of your Python script.
+- Replace API_USERNAME and API_PASSWORD with the desired credentials
+- Replace paths to match the locations on your filesystem.
 
 ### Step 2: Enable and Start the Service
 

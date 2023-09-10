@@ -1,0 +1,17 @@
+[Unit]
+Description=Remote Start Server
+After=network.target
+
+[Service]
+ExecStart=/home/nick/repos/remote-start-api/venv/bin/python3 /home/nick/repos/remote-start-api/remote-start-server.py
+WorkingDirectory=/home/nick/repos/remote-start-api
+Restart=always
+User=nick
+Group=nick
+Environment=PATH=/usr/bin:/usr/local/bin
+Environment=PYTHONPATH=/home/nick/repos/remote-start-api
+Environment=API_USERNAME=admin
+Environment=API_PASSWORD=password
+
+[Install]
+WantedBy=multi-user.target
